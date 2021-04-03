@@ -3,6 +3,7 @@ import {UserContext} from '../../App'
 import {Link} from 'react-router-dom'
 
 const Home = () => {
+  const [readMore,setReadMore]=useState(false);
   const [data, setData] = useState([]);
   const {state,dispatch} = useContext(UserContext)
   useEffect(() => {
@@ -15,6 +16,7 @@ const Home = () => {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
+        // console.log("test")
         setData(result.posts);
       });
   }, []);
@@ -134,12 +136,13 @@ const deleteComment = (postid, commentid) => {
     });
 };
 
-
+const x=readMore?'Read Less << ':'Read More >> '
   return (
     // <h1>Home</h1>
     <div className="home">
       {data.map((item) => {
         return (
+        
           <div className="card home-card" key ={item._id}>
             <h5><Link to={item.postedBy._id != state._id ?"/profile/"+item.postedBy._id :"/profile/" }>{item.postedBy.name} </Link>
             {item.postedBy._id == state._id
@@ -156,16 +159,21 @@ const deleteComment = (postid, commentid) => {
               </i>
               
               {item.likes.includes(state._id)
-              ?<i className="material-icons" onClick={()=>{unlikePost(item._id)}}> thumb_down</i>
+              ?<i className="material-icons" style={{cursor:"pointer"}} onClick={()=>{unlikePost(item._id)}}> thumb_down</i>
               :
-              <i className="material-icons" onClick={()=>{likePost(item._id)}}
+              <i className="material-icons" style={{cursor:"pointer"}} onClick={()=>{likePost(item._id)}}
               >thumb_up  </i>
             }
               
               {/* <i className="material-icons" onClick={()=>{unlikePost(item._id)}}> thumb_down</i> */}
               <h6>{item.likes.length} likes</h6>
-              <h6>{item.title}</h6>
-              <p>{item.body}</p>
+              <h6><b>Title :</b> {" "}{item.title}</h6>
+              <a style={{justifyContent:true}}><b>Description :</b><i> {!readMore && item.body.slice(0,item.body.length/4)}</i></a>
+              <a onClick={()=>{setReadMore(!readMore)}}><i className="read-more-link">{readMore && item.body.slice(0,item.body.length)}{" "}<a className="read-more-link"><b>{x}</b></a>
+              </i>
+              </a>
+              <p><i class="Tiny material-icons">local_phone</i> : {" "}{item.phone}</p>
+              <p><b>Address :</b>{" "}<i>{item.address}</i></p>
               {
                 item.comments.map(record=>{
                   // console.log(record.postedBy.name)
