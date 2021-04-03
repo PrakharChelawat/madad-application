@@ -10,8 +10,11 @@ import CreatePost from './components/screens/createpost'
 import {reducer,intialState} from './reducers/userReducer'
 import UserProfile from './components/screens/UserProfile'
 import SubcribesUserPosts from './components/screens/SubscribesUserPosts'
+import Aboutus from './components/screens/Aboutus'
+import Reset from './components/screens/Reset'
+import Newpassword from './components/screens/Newpassword'
 export const UserContext = createContext()
-// hello
+
 const Routing = () =>{
   const history =useHistory()
   const {state,dispatch}=useContext(UserContext)
@@ -23,13 +26,16 @@ const Routing = () =>{
       // history.push("/")
     }
     else{
-      history.push('/signin')
+      if(!history.location.pathname.startsWith('/reset')){
+        history.push('/signin')
+      }
+      
     }
   },[])
   return (
     <Switch>
     <Route exact path="/">
-      <Home />
+      <Home/>
     </Route>
     <Route path="/signin">
       <Signin />
@@ -37,17 +43,26 @@ const Routing = () =>{
     <Route path="/signup">
       <Signup />
     </Route>
+    <Route path="/aboutus">
+      <Aboutus/>
+    </Route>
     <Route exact path="/profile">
       <Profile />
-    </Route>
-    <Route path="/create">
-      <CreatePost />
     </Route>
     <Route path="/profile/:userid">
       <UserProfile />
     </Route>
     <Route path="/myfollowingpost">
       <SubcribesUserPosts />
+    </Route>
+    <Route path="/create">
+      <CreatePost />
+    </Route>
+    <Route exact path="/reset">
+      <Reset />
+    </Route>
+    <Route  path="/reset/:token">
+      <Newpassword />
     </Route>
     </Switch>
   );
