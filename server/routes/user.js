@@ -81,4 +81,21 @@ router.put('/updatepic',requiredLogin,(req,res)=>{
         res.json(result)
     })
 })
+router.delete('/deleteId/:id',requiredLogin,(req,res)=>{
+    User.findByIdAndRemove({_id:req.params.id})
+    
+
+})
+router.post('/search-users',(req,res)=>{
+    let userPattern = new RegExp("^"+req.body.query)
+    User.find({email:{$regex:userPattern}})
+    .select("_id email")
+    .then(user=>{
+        res.json({user})
+    }).catch(err=>{
+        // console.log("tesi")
+        console.log(err)
+    })
+
+})
 module.exports = router

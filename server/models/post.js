@@ -14,6 +14,15 @@ const postSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    phone:{
+        type:String,
+        // ref:"User",
+        required:true
+    },
+    address:{
+        type:String,
+        required:true
+    },
     likes:[{type:ObjectId,ref:"User"}],
     comments:[{
         text:String,
@@ -23,6 +32,6 @@ const postSchema = new mongoose.Schema({
         type:ObjectId,
         ref:"User"
     }
-})
+},{timestamps:true})
 
 mongoose.model("Post",postSchema)

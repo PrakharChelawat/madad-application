@@ -9,6 +9,7 @@ router.get('/allpost',requiredLogin,(req,res)=>{
     //populating postedby
     .populate("postedBy","_id name")
     .populate("comments.postedBy","_id name")
+    .sort('-createdAt')
     .then(posts=>{
         res.json({posts})
     })
@@ -22,6 +23,7 @@ router.get('/getsubscribedpost',requiredLogin,(req,res)=>{
     //populating postedby
     .populate("postedBy","_id name")
     .populate("comments.postedBy","_id name")
+    .sort('-createdAt')
     .then(posts=>{
         res.json({posts})
     })
@@ -30,8 +32,8 @@ router.get('/getsubscribedpost',requiredLogin,(req,res)=>{
     })
 })
 router.post('/createpost',requiredLogin,(req,res)=>{
-    const {title,body,pic}=req.body
-    if(!title || !body || !pic){
+    const {title,body,pic,phone,address}=req.body
+    if(!title || !body || !pic || !phone || !address){
         return res.status(422).json({error:"Please add all the fields"})
     }
     // console.log(req.user)
@@ -41,6 +43,8 @@ router.post('/createpost',requiredLogin,(req,res)=>{
         title,
         body,
         photo:pic,
+        phone,
+        address,
         postedBy:req.user
 
 
@@ -137,6 +141,7 @@ router.delete('/deletepost/:postId',requiredLogin,(req,res)=>{
         }
     })
 })
+
 router.delete("/deletecomment/:id/:comment_id", requiredLogin, (req, res) => {
     const comment = { _id: req.params.comment_id };
     Post.findByIdAndUpdate(
