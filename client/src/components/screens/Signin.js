@@ -43,9 +43,10 @@ const Signin = () => {
   }
   return (
     // <h1>Login</h1>
+    <>
     <div className="mycard">
       <div className="card auth-card input-field">
-        <h2>Instagram</h2>
+        <h2>मदद</h2>
         <input type="text" placeholder="email" 
         value={email}
         onChange ={(e) =>setEmail(e.target.value)}/>
@@ -59,9 +60,15 @@ const Signin = () => {
           login
         </button>
         <h5><Link to="/signup">Don't have an account ?</Link></h5>
+        <h6><Link to="/reset">Forget Password</Link></h6>
       </div>
-      
+    <br/>
+    <br/>
+    <br/>
+    
     </div>
+    
+  </>
   );
 };
 export default Signin;
