@@ -1,5 +1,4 @@
 export const intialState = null
-// #export
 export const reducer = (state,action) =>{
     if(action.type ==="USER"){
         return action.payload
