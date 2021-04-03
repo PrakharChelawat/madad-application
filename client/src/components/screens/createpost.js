@@ -6,6 +6,9 @@ const CreatePost = () => {
   const [body,setBody]=useState("")
   const [image,setImage]=useState("")
   const [url,setUrl]=useState("")
+  const [phone,setPhone]=useState("")
+  const [address,setAddress]=useState("")
+  
   const history=useHistory()
   useEffect(()=>{
     if(url){
@@ -18,7 +21,10 @@ const CreatePost = () => {
         body:JSON.stringify({
           title,
           body,
-          pic:url
+
+          pic:url,
+          phone,
+          address,
         })
       }).then(res=>res.json())
       .then(data=>{
@@ -55,13 +61,22 @@ const CreatePost = () => {
   }
   return (
     <div className="card input-filled">
-      <input type="text" placeholder="title" 
+      <input type="text" placeholder="Name / Title" 
       value={title}
       onChange={(e)=>setTitle(e.target.value)}
       />
-      <input type="text" placeholder="body" 
+      <input type="text" placeholder="Description" 
       value={body}
       onChange={(e)=>setBody(e.target.value)}/>
+      
+      <input type="text" placeholder="Phone" 
+      value={phone}
+      onChange={(e)=>setPhone(e.target.value)}
+      />
+      <input type="text" placeholder="Address" 
+      value={address}
+      onChange={(e)=>setAddress(e.target.value)}
+      />
       <div className="file-field input-field">
         <div className="btn  #3d5afe indigo accent-3">
           <span>Upload Image</span>
@@ -73,6 +88,7 @@ const CreatePost = () => {
         </div>
         
       </div>
+      
       <button
           className="btn waves-effect waves-light #3d5afe indigo accent-3"
           onClick={()=>postDetails()}
