@@ -2,6 +2,8 @@ import React ,{useState,useEffect} from "react";
 import { Link,useHistory } from "react-router-dom";
 import M from 'materialize-css';
 
+// 
+
 const Signup = () => {
   const history=useHistory()
   const [name,setName] =useState("")
@@ -9,6 +11,8 @@ const Signup = () => {
   const [email,setEmail]=useState("")
   const[image,setImage]=useState("")
   const [url,setUrl]=useState(undefined)
+  const [phone,setPhone] =useState("")
+  const [aboutus,setAboutus] =useState("")
   // const send
   useEffect(() => {
     if(url){
@@ -47,6 +51,8 @@ const Signup = () => {
         name,
         password,
         email,
+        phone,
+        aboutus,
         pic:url
       })
     }).then(res=>res.json())
@@ -77,10 +83,10 @@ const Signup = () => {
     // <h1>Signup</h1>
     <div className="mycard">
       <div className="card auth-card input-field">
-        <h2>Instagram</h2>
+        <h2>मदद</h2>
         <input 
         type="text" 
-        placeholder="name" 
+        placeholder="Name / NGO Name" 
         value={name}
         onChange ={(e) =>setName(e.target.value)}
          />
@@ -91,6 +97,12 @@ const Signup = () => {
         <input type="password" placeholder="password" 
         value={password}
         onChange ={(e) =>setPassword(e.target.value)}/>
+        <input type="text" placeholder="Phone Number" 
+        value={phone}
+        onChange ={(e) =>setPhone(e.target.value)}/>
+        <input type="text" placeholder="About Us" 
+        value={aboutus}
+        onChange ={(e) =>setAboutus(e.target.value)}/>
          <div className="file-field input-field">
         <div className="btn  #3d5afe indigo accent-3">
           <span>Upload Profile Pic</span>
@@ -108,6 +120,19 @@ const Signup = () => {
         </button>
         <h5><Link to="/signin">Already have an account ?</Link></h5>
       </div>
+      <br/>
+      <br/>
+      <br/>
+      
+      {/* <footer className="page-footer footerr #424242 grey darken-3">
+          <div className="footer ">
+            <div className="container left self3" >
+            ©Developer:Prakhar Chelawat  
+            </div>
+            <a className="grey-text text-lighten-4 center" href="https://github.com/PrakharChelawat" target="_blank">Github    </a>
+            <a className="grey-text text-lighten-4 center" href="https://www.linkedin.com/in/prakhar-chelawat-2b909a187/" target="_blank">  LinkedIn</a>
+          </div>
+        </footer> */}
     </div>
   );
 };
